@@ -1,0 +1,54 @@
+{% extends "ircontrol/base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'ircontrol/mask.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="alert_placeholder"></div>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Command</th>
+                <th></th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for command in commands %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ command.name }}</td>
+                <td><button onclick="executeCommand({{ command.id }})">Execute</button></td>
+                <td>{{ command.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#nav-home').addClass("active");
+        });
+        function mask() { $("body").addClass("loading"); }
+		function unmask() { $("body").removeClass("loading"); }
+		
+        function executeCommand(id) {
+            mask();
+            var url = "/execute/" + id;
+            $.post(url, function(data) {
+                unmask();
+                if(data.result == 0) {
+                    $('#alert_placeholder').html('<div class="alert alert-success alert-dismissible"><a class="close" data-dismiss="alert">×</a><span>Command executed successfully.</span></div>')
+                } else {
+                    $('#alert_placeholder').html('<div class="alert alert-danger alert-dismissible"><a class="close" data-dismiss="alert">×</a><span>' + data.error + '[code: ' + data.result + ']</span></div>')
+                }
+            });
+        }
+    </script>
+{% endblock %}

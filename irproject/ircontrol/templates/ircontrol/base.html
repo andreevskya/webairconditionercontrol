@@ -1,0 +1,45 @@
+{% load static %}
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Air conditioner control</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'ircontrol/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'ircontrol/sticky-footer-navbar.css' %}">
+  {% block css %}
+  {% endblock %}
+  <script src="{% static 'ircontrol/jquery.min.js' %}"></script>
+  <script src="{% static 'ircontrol/bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">IR Control</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li id="nav-home"><a href="/">Home</a></li>
+            <li id="nav-blamelist"><a href="/blamelist">Blame list</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/admin"><span class="glyphicon glyphicon-log-in"></span> Admin</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+<footer class="footer">
+    <div class="container text-center">
+        <p class="text-muted">Powered by <a href="https://djangoproject.com" target="_blank">Django Framework</a>. 2017.</p>
+   </div>
+</footer>
+{% block scripts %}
+{% endblock %}
+<div class="mask"></div>
+</body>
+</html> 

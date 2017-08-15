@@ -1,0 +1,34 @@
+{% extends "ircontrol/base.html" %}
+
+{% block content %}
+    <h3>Blame list</h3>
+    <p>This table shows who last touched the control</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>IP</th>
+                <th>Command</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in blamelist %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ entry.executor }}</td>
+                <td>{{ entry.command.name }}</td>
+                <td>{{ entry.when|date:"d.m.Y" }} {{ entry.when|time:"H:i:s" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#nav-blamelist').addClass("active");
+        });
+    </script>
+{% endblock %}
