@@ -13,9 +13,10 @@ class IrCommand(models.Model):
         return self.name
     
 class CommandLogEntry(models.Model):
+    host = models.CharField(null=True, blank=True, max_length=64)
     executor = models.GenericIPAddressField()
     when = models.DateTimeField()
     command = models.ForeignKey(IrCommand)
     
     def __str__(self):
-        return "%s %s %s" % (self.executor, self.command.name, self.when)
+        return "%s [%s] %s %s" % (self.executor, self.host, self.command.name, self.when)

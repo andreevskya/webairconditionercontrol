@@ -8,6 +8,7 @@
             <tr>
                 <th></th>
                 <th>IP</th>
+                <th>Host</th>
                 <th>Command</th>
                 <th>Time</th>
             </tr>
@@ -17,6 +18,7 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ entry.executor }}</td>
+                <td>{{ entry.host }}</td>
                 <td>{{ entry.command.name }}</td>
                 <td>{{ entry.when|date:"d.m.Y" }} {{ entry.when|time:"H:i:s" }}</td>
             </tr>
