@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import socket
 from datetime import datetime
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -21,6 +22,14 @@ def get_ip_addr(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+def get_client_host(request):
+    ip = get_ip_addr(request)
+    if not ip:
+        return None
+    d = socket.gethostbyaddr(ip)
+    if d:
+        return d[0]
 
 def index(request):
     commands = IrCommand.objects.all()
@@ -58,7 +67,7 @@ def execute_command(request, id):
     result = control.execute(command.frequency, command.command)
     
     if result[0] == 0:
-        command_log = CommandLogEntry(executor=get_ip_addr(request), when=datetime.now(), command=command)
+        command_log = CommandLogEntry(executor=get_ip_addr(request), host=get_client_host(request), when=datetime.now(), command=command)
         command_log.save()
     
     return JsonResponse({
