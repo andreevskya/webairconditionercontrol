@@ -45,6 +45,17 @@ def blamelist(request):
     }
     return render(request, 'ircontrol/blamelist.html', context)
 
+def temperature_view(request):
+    if request.method != 'GET':
+        return HttpResponseNotAllowed("Method not allowed")
+    temp_data = control.measure_temp()
+    context = {
+        'result': temp_data[0],
+        'error': temp_data[1],
+        'temp': temp_data[2]
+    }
+    return render(request, 'ircontrol/temp.html', context)
+
 def measure_temp(request):
     if request.method != 'GET':
         return HttpResponseNotAllowed("Method not allowed")

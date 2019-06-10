@@ -18,7 +18,7 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ entry.executor }}</td>
-                <td>{{ entry.host }}</td>
+                <td>{{ entry.host|default:"" }}</td>
                 <td>{{ entry.command.name }}</td>
                 <td>{{ entry.when|date:"d.m.Y" }} {{ entry.when|time:"H:i:s" }}</td>
             </tr>

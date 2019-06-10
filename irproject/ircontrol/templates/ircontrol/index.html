@@ -21,9 +21,9 @@
             {% for command in commands %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ command.name }}</td>
+                <td>{{ command.name|default:"" }}</td>
                 <td><button onclick="executeCommand({{ command.id }})">Execute</button></td>
-                <td>{{ command.description }}</td>
+                <td>{{ command.description|default:"" }}</td>
             </tr>
             {% endfor %}
         </tbody>
