@@ -1,0 +1,21 @@
+{% extends "ircontrol/base.html" %}
+
+{% block content %}
+
+{% if error %}
+<div class="alert alert-danger" role="alert">
+The temperature sensor is not available at the moment. See description below.<hr>{{ error }}
+</div>
+{% else %}
+<h1>{{ temp }} °C</h1>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#nav-temp').addClass("active");
+        });
+    </script>
+{% endblock %}
